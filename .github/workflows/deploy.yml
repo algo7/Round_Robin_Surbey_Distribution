@@ -40,7 +40,7 @@ jobs:
         run: docker-compose --env-file=docker.env push
     
     # Archive artifacts
-      - name: Archive code coverage results
+      - name: Archive Docker env file
         uses: actions/upload-artifact@v2
         with:
           name: docker.env
@@ -64,7 +64,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: docker.env
-          
+
     # Setup SSH
       - name: Setup SSH
         run: |
