@@ -27,6 +27,9 @@ COPY --from=DEPENDENCIES /usr/src/app/node_modules ./node_modules
 # Copy rest of the files [from local to RELEASE]
 COPY . .
 
+# Grant permission to non-root user
+RUN chown -R 1000:1000 /usr/src/app
+
 # Run the service with non-root user
 USER 1000:1000
 
