@@ -19,7 +19,8 @@ const redisClient = redis.createClient({
 const { promisify, } = require('util');
 const lpushAsync = promisify(redisClient.LPUSH).bind(redisClient);
 const rpopAsync = promisify(redisClient.RPOP).bind(redisClient);
-
+const llenAsync = promisify(redisClient.LLEN).bind(redisClient);
+const setAsync = promisify(redisClient.SET).bind(redisClient);
 
 // Export the Module
-module.exports = { lpushAsync, rpopAsync, };
+module.exports = { lpushAsync, rpopAsync, llenAsync, setAsync, };
