@@ -50,7 +50,7 @@ jobs:
 
 # Continuous deployment 
   CD:
-    # needs: CI
+    needs: CI
     runs-on: ubuntu-latest
     permissions:
       packages: write
