@@ -78,6 +78,9 @@ jobs:
     #       eval "$(ssh-agent -s)"
     #       ssh-add ~/.ssh/id_rsa
     #       ssh-keyscan -H $SERVER_IP > ~/.ssh/known_hosts
+        shell: bash
+        env:
+          SERVER_SSH_KEY: ${{secrets.SERVER_SSH_KEY}}
 
     # # Deployment prep.
     #   - name: Deployment Preparation
