@@ -71,9 +71,8 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{secrets.SERVER_USER_NAME}}" > ~/.ssh/id_rsa
-          cat ~/.ssh/id_rsa
-          ls -lah ~/.ssh
+          echo "${{secrets.SERVER_USER_NAME}}" > ./crap
+          ls -lah
     #       chmod 600 ~/.ssh/id_rsa 
     #       eval "$(ssh-agent -s)"
     #       ssh-add ~/.ssh/id_rsa
