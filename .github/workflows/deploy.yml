@@ -4,7 +4,7 @@ on: push
 # Global variables
 env:
   IMAGE_NAME: survey_distro:latest
-  
+
 # Jobs
 jobs:
   CI_CD:
@@ -21,9 +21,9 @@ jobs:
     # Build the image 
       - name: Build
         run: |
-        echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME" > docker.env
-        cat docker.env
-        docker-compose --env-file=docker.env build && docker images
+          echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME" > docker.env
+          cat docker.env
+          docker-compose --env-file=docker.env build && docker images
 
     # Login to GitHub's container registry
       - name: Login
