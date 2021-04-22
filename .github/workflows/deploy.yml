@@ -26,7 +26,7 @@ jobs:
     # Build the image 
       - name: Build
         run: |
-          VERSION=$(echo "${SHA:0:6}")
+          VERSION=$(echo "${GITHUB_SHA:0:6}")
           echo $VERSION
           echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
           docker-compose --env-file=docker.env build && docker images
