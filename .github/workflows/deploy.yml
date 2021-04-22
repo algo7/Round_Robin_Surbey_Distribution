@@ -1,5 +1,10 @@
 name: Survey Image CI/CD
 on: push
+
+# Global variables
+IMAGE_NAME: "survey_distro:latest"
+
+# Jobs
 jobs:
   CI_CD:
     runs-on: ubuntu-latest
@@ -14,7 +19,10 @@ jobs:
 
     # Build the image 
       - name: Build
-        run: docker-compose build && docker images
+        run: |
+        echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME" > docker.env
+        cat docker.env
+        docker-compose --env-file=docker.env build && docker images
 
     # Login to GitHub's container registry
       - name: Login
