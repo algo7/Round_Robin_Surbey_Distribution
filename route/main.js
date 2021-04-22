@@ -3,11 +3,15 @@ const express = require('express');
 const router = express.Router();
 
 // Controllers
-const { main, } = require('../controller/main');
+const { main, info, } = require('../controller/main');
 
 
-// Get all the db contents
+// Get the link
 router.get('/', main);
+
+// Get link stats
+router.get('/info', info);
+
 
 //Export the Module
 module.exports = router;

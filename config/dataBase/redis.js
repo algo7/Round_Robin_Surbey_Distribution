@@ -21,7 +21,8 @@ const lpushAsync = promisify(redisClient.LPUSH).bind(redisClient);
 const rpopAsync = promisify(redisClient.RPOP).bind(redisClient);
 const llenAsync = promisify(redisClient.LLEN).bind(redisClient);
 const setAsync = promisify(redisClient.SET).bind(redisClient);
+const getAsync = promisify(redisClient.GET).bind(redisClient);
 const incrbyAsync = promisify(redisClient.INCRBY).bind(redisClient);
 
 // Export the Module
-module.exports = { lpushAsync, rpopAsync, llenAsync, setAsync, incrbyAsync, };
+module.exports = { lpushAsync, rpopAsync, llenAsync, setAsync, getAsync, incrbyAsync, };
