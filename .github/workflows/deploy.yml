@@ -3,8 +3,8 @@ on: push
 
 # Global variables
 env:
-  IMAGE_NAME: "survey_distro:latest"
-
+  IMAGE_NAME: survey_distro:latest
+  
 # Jobs
 jobs:
   CI_CD:
