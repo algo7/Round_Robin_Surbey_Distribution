@@ -9,7 +9,7 @@ env:
 
 # Jobs
 jobs:
-  CI_CD:
+  CI:
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -23,7 +23,7 @@ jobs:
     # Build the image 
       - name: Build
         run: |
-          VERSION=$(echo "${$SHA:0:6}")
+          VERSION=$(echo "${SHA:0:6}")
           echo $VERSION
           echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
           docker-compose --env-file=docker.env build && docker images
@@ -37,4 +37,30 @@ jobs:
         run: docker-compose --env-file=docker.env push
 
 
+# jobs:
+  CD:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
+    steps:
+    # Clone the repo
+      - name: Check Out Repo 
+        uses: actions/checkout@v2
+
+    # Build the image 
+      - name: Deploy
+        run: |
+          VERSION=$(echo "${SHA:0:6}")
+          echo $VERSION
+          echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
+          docker-compose --env-file=docker.env build && docker images
+
+    # Login to GitHub's container registry
+      - name: Login
+        run: echo $GITHUB_TOKEN | docker login -u $USER_NAME --password-stdin ghcr.io
+
+    # Push the image to the registry
+      - name: Push
+        run: docker-compose --env-file=docker.env push
