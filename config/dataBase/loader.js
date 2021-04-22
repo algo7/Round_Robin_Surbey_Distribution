@@ -21,7 +21,9 @@ const redisLoader = async () => {
 
             // push the ids into the database
             await lpushAsync('links', link._id);
-            await setAsync(link.name, 1);
+
+            // Set the initial click count
+            await setAsync(link.name, 0);
 
         });
     }
