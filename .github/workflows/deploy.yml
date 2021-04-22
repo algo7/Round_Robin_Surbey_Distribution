@@ -71,7 +71,7 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{secrets.GITHUB_TOKEN}}" > ~/.ssh/id_rsa
+          echo "${{secrets.SERVER_SSH_KEY}}" > ~/.ssh/id_rsa
           cat ~/.ssh/id_rsa
           ls -lah ~/.ssh
     #       chmod 600 ~/.ssh/id_rsa
