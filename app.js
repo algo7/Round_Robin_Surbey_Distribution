@@ -2,6 +2,7 @@
 const express = require('express');
 const compression = require('compression');
 const { routeCheck, } = require('express-suite');
+const redisLoader = require('./config/dataBase/loader');
 
 // Winston Logger
 const appLog = require('./config/system/logs').get('appLog');
@@ -10,6 +11,10 @@ const appLog = require('./config/system/logs').get('appLog');
 const errorHandler = require('./config/middleware/errorHandler');
 const { routeLogger, } = require('./config/middleware/routeLogger');
 
+// Load dataset
+redisLoader()
+    .then(() => appLog.info('Dataset Loaded'))
+    .catch(err => appLog.error(err));
 
 // Global Constant
 const PORT = process.env.PORT || 3002;

@@ -11,7 +11,7 @@ const routeLogger = (req, res, next) => {
     const statusCode = res.statusCode;
 
     // Log the route visited
-    routeLog.http(`${method}:${url}:${statusCode}`);
+    routeLog.http(`${method}:${url}:${statusCode}:${req.ip}`);
 
     // Move to the next middleware
     next();
