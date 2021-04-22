@@ -3,9 +3,12 @@ on: push
 
 # Global variables
 env:
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   USER_NAME: ${{github.actor}}
   GITHUB_SHA: ${{github.sha}}
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  SSH_KEY: ${{secrets.SSH_KEY}}
+  SERVER_IP: ${{secrets.SERVER_IP}}
+  SERVER_USER_NAME: ${{secrets.SERVER_USER_NAME}}
 
 # Jobs
 jobs:
@@ -23,7 +26,7 @@ jobs:
     # Build the image 
       - name: Build
         run: |
-          VERSION=$(echo "${SHA:0:6}")
+          VERSION=$(echo "${$SHA:0:6}")
           echo $VERSION
           echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
           docker-compose --env-file=docker.env build && docker images
@@ -37,30 +40,37 @@ jobs:
         run: docker-compose --env-file=docker.env push
 
 
-# jobs:
-  CD:
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
+# # jobs:
+#   CD:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       packages: write
+#       contents: read
 
-    steps:
-    # Clone the repo
-      - name: Check Out Repo 
-        uses: actions/checkout@v2
+#     steps:
+#     # Clone the repo
+#       - name: Check Out Repo 
+#         uses: actions/checkout@v2
 
-    # Build the image 
-      - name: Deploy
-        run: |
-          VERSION=$(echo "${SHA:0:6}")
-          echo $VERSION
-          echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
-          docker-compose --env-file=docker.env build && docker images
+#     # Setup SSH
+#       - name: Setup SSH
+#         run: |
+#           mkdir -p ~/.ssh
+#           echo "$SSH_KEY" > ~/.ssh/id_rsa
+#           chmod 600 ~/.ssh/id_rsa
+#           eval "$(ssh-agent -s)"
+#           ssh-add ~/.ssh/id_rsa
+#           ssh-keyscan -H $SERVER_IP > ~/.ssh/known_hosts
 
-    # Login to GitHub's container registry
-      - name: Login
-        run: echo $GITHUB_TOKEN | docker login -u $USER_NAME --password-stdin ghcr.io
+#     # Deployment prep.
+#       - name: Deployment Preparation
+#         run: |
+#           echo "echo $GITHUB_TOKEN | docker login -u $USER_NAME --password-stdin ghcr.io" | ssh $SERVER_USER_NAME@$SERVER_IP
+#           scp docker-compose.yml docker.env $SERVER_USER_NAME@$SERVER_IP:~
 
-    # Push the image to the registry
-      - name: Push
-        run: docker-compose --env-file=docker.env push
+#     # Deployment
+#       - name: Deployment
+#         run: |
+#           echo "docker-compose --env-file=docker.env down && yes | docker system prune && yes | docker volume prune && yes | docker image prune -a && docker-compose --env-file=docker.env up -d"
+
+
