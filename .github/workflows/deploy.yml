@@ -12,6 +12,7 @@ env:
 
 # Jobs
 jobs:
+# Continuous integration
   CI:
     runs-on: ubuntu-latest
     permissions:
@@ -46,9 +47,9 @@ jobs:
           name: docker.env
           path: docker.env
 
-
-# jobs:
+# Continuous deployment 
   CD:
+    needs: CI
     runs-on: ubuntu-latest
     permissions:
       packages: write
