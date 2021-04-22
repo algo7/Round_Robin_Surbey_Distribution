@@ -1,5 +1,5 @@
 // Redis
-const { lpushAsync, rpopAsync, llenAsync, setAsync, } = require('../config/dataBase/redis');
+const { lpushAsync, rpopAsync, llenAsync, setAsync, incrbyAsync, } = require('../config/dataBase/redis');
 
 // Async Handler
 const asyncHandler = require('../config/middleware/asyncHandler');
@@ -48,10 +48,12 @@ const main = asyncHandler(async (req, res, next) => {
     const linkPosition = linkId - 1;
 
     // Get the actual link
-    const linkToSend = links[linkPosition].url;
+    const { url, name, } = links[linkPosition];
+
+    await incrbyAsync(name, 1);
 
     // Redirect the client to the respective links
-    res.status(200).redirect(linkToSend);
+    res.status(200).redirect(url);
 });
 
 
