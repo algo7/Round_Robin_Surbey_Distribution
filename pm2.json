@@ -1,0 +1,8 @@
+{
+    "name": "lint_service",
+    "script": "app.js",
+    "autorestart": true,
+    "watch": false,
+    "max_memory_restart": "1G",
+    "exec_mode": "fork"
+}

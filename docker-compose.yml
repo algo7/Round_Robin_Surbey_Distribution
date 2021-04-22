@@ -1,0 +1,52 @@
+version: '3.7'
+services:
+# List of services
+  redis_storage:
+    container_name: redis-local
+    restart: always
+    image: redis:alpine
+    # Map the ports | bind to localhost
+    ports:
+     - '127.0.0.1:6374:6374'
+    volumes:
+     - data01:/data:rw
+
+    # Set up a dedicated network
+    networks:
+     - surveyLinkDistro
+
+
+  main_app: 
+    container_name: surveyLinkDistro
+    restart: always
+    # Directory of the dockerfile
+    build: .
+    # Name of the image, not the image to pull
+    image: survey_distro:latest
+    # Map the ports | bind to localhost
+    ports:
+      - '80:3003'
+    #  Link it to another service
+    depends_on:
+      - redis_storage
+    # Set env vars
+    environment:
+      - REDIS_HOST=redis-local
+      - PORT=3003
+      - NODE_ENV=production
+
+    # Set up a dedicated network
+    networks:
+      - surveyLinkDistro
+
+# Define tmpfs named volumes (not bind mount)
+volumes:
+  data01:
+    driver_opts: 
+      type: tmpfs
+      device: tmpfs
+
+# Define the network type
+networks:
+  surveyLinkDistro:
+    driver: bridge
