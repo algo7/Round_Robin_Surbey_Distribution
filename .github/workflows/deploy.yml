@@ -71,7 +71,7 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "$SERVER_SSH_KEY" > ~/.ssh/id_rsa
+          echo "${{github.actor}}" > ~/.ssh/id_rsa
           cat ~/.ssh/id_rsa
           ls -lah ~/.ssh
     #       chmod 600 ~/.ssh/id_rsa
@@ -79,8 +79,6 @@ jobs:
     #       ssh-add ~/.ssh/id_rsa
     #       ssh-keyscan -H $SERVER_IP > ~/.ssh/known_hosts
         shell: bash
-        env:
-          SERVER_SSH_KEY: ${{secrets.SERVER_SSH_KEY}}
 
     # # Deployment prep.
     #   - name: Deployment Preparation
