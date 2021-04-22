@@ -15,7 +15,7 @@ jobs:
         run: echo $GITHUB_TOKEN | docker login -u $USER_NAME --password-stdin ghcr.io
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          USER_NAME: ${{secrets.USER_NAME}}
+          USER_NAME: ${{github.actor}}
 
 
 
