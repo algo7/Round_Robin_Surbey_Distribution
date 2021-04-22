@@ -73,7 +73,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SERVER_SSH_KEY" > ~/.ssh/id_rsa
           cat ~/.ssh/id_rsa
-          ls -lah
+          ls -lah ~/.ssh
     #       chmod 600 ~/.ssh/id_rsa
     #       eval "$(ssh-agent -s)"
     #       ssh-add ~/.ssh/id_rsa
