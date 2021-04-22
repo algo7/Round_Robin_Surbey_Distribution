@@ -6,7 +6,7 @@ env:
   USER_NAME: ${{github.actor}}
   GITHUB_SHA: ${{github.sha}}
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  SERVER_SSH_KEY: ${{secrets.SERVER_SSH_KEY}}
+  # SERVER_SSH_KEY: ${{secrets.SERVER_SSH_KEY}}
   SERVER_IP: ${{secrets.SERVER_IP}}
   SERVER_USER_NAME: ${{secrets.SERVER_USER_NAME}}
 
@@ -71,7 +71,7 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{secrets.SERVER_SSH_KEY}}" > ~/.ssh/id_rsa
+          echo "${{secrets.ARC}}" > ~/.ssh/id_rsa
           cat ~/.ssh/id_rsa
           ls -lah ~/.ssh
     #       chmod 600 ~/.ssh/id_rsa 
