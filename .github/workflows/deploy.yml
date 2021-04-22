@@ -1,7 +1,7 @@
 name: Survey Image CI/CD
 on: push
 jobs:
-  CI/CD:
+  CI_CD:
     runs-on: ubuntu-latest
     permissions:
       packages: write
