@@ -34,7 +34,7 @@ jobs:
 
     # Push the image to the registry
       - name: Push
-        run: docker-compose push
+        run: docker-compose --env-file=docker.env push
 
 
 
