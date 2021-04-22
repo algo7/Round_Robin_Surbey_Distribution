@@ -1,0 +1,22 @@
+{
+  "name": "round_robin_survey_distribution",
+  "version": "1.0.0",
+  "description": "A simple Node.js app that distributes survey links in a round-robin fashion",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/algo7/Round_Robin_Survey_Distribution.git"
+  },
+  "author": "Aviv Lo",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/algo7/Round_Robin_Survey_Distribution/issues"
+  },
+  "homepage": "https://github.com/algo7/Round_Robin_Survey_Distribution#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
