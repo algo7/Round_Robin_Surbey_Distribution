@@ -7,9 +7,8 @@ const appLog = require('../system/logs').get('appLog');
 
 // Connect to Redis
 const redisClient = redis.createClient({
-    host: '127.0.0.1',
-    port: '6379',
-    password: process.env.Redis_Pass,
+    host: process.env.REDIS_HOST || '127.0.0.1',
+    port: 6379,
 })
     .once('connect', () => appLog.info('Redis Connected'))
     .on('error', err => appLog.error('Redis Connection Error: ' + err));

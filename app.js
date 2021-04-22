@@ -70,5 +70,5 @@ app.use(routeCheck(app));
 
 // Start the app
 app.listen(PORT, () => {
-    appLog.info(`Server is listening in ${process.env.NODE_ENV} on port ${PORT}`);
+    appLog.info(`Server is listening in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });

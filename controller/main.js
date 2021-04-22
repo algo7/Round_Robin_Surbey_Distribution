@@ -1,8 +1,5 @@
-// Custom Modules
-// const DB_Connection = require('../config/dataBase/dbConnection');
-
-// Load DB Models
-// const {} = DB_Connection;
+// Redis
+const { lpushAsync, rpopAsync, } = require('../config/dataBase/redis');
 
 // Async Handler
 const asyncHandler = require('../config/middleware/asyncHandler');
