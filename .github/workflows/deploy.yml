@@ -1,12 +1,15 @@
 name: Survey Image CI/CD
-on: push
+on:
+  push:
+    branches:
+      - main
 
 # Global variables
 env:
   USER_NAME: ${{ github.actor }}
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+  SERVER_IPX: ${{ secrets.SERVER_IP }
 # Jobs
 jobs:
 
@@ -25,6 +28,7 @@ jobs:
     # Build the image 
       - name: Build Image
         run: |
+          echo $SERVER_IPX
           VERSION=$(echo "${GITHUB_SHA:0:6}")
           echo $VERSION
           echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
