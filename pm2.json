@@ -1,5 +1,5 @@
 {
-    "name": "lint_service",
+    "name": "survey_distro",
     "script": "app.js",
     "autorestart": true,
     "watch": false,
