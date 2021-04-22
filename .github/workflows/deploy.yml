@@ -1,6 +1,9 @@
 name: Survey Image CI/CD
 on: push
 
+# Global variables
+env:
+  VERSION: ${{ github.sha }}
 
 # Jobs
 jobs:
@@ -18,7 +21,6 @@ jobs:
     # Build the image 
       - name: Build
         run: |
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo $VERSION
           echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
           docker-compose --env-file=docker.env build && docker images
