@@ -9,7 +9,10 @@ env:
   USER_NAME: ${{ github.actor }}
   GITHUB_SHA: ${{ github.sha }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SERVER_IPX: ${{ secrets.SERVER_IP }
+  SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+  SERVER_IP: ${{ secrets.SERVER_IP }}
+  SERVER_USER_NAME: ${{ secrets.SERVER_USER_NAME }}
+  
 # Jobs
 jobs:
 
@@ -77,23 +80,14 @@ jobs:
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_rsa
           ssh-keyscan -H $SERVER_IP > ~/.ssh/known_hosts
-        env:
-          SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          SERVER_IP: ${{ secrets.SERVER_IP }}
 
     # Deployment prep.
       - name: Deployment Preparation
         run: |
           echo "echo $GITHUB_TOKEN | docker login -u $USER_NAME --password-stdin ghcr.io" | ssh $SERVER_USER_NAME@$SERVER_IP
           scp docker-compose.yml docker.env $SERVER_USER_NAME@$SERVER_IP:~
-        env:
-          SERVER_IP: ${{ secrets.SERVER_IP }}
-          SERVER_USER_NAME: ${{ secrets.SERVER_USER_NAME }}
 
     # Deployment
       - name: Deployment
         run: |
           echo "docker-compose --env-file=docker.env down && yes | docker system prune && yes | docker volume prune && yes | docker image prune -a && docker-compose --env-file=docker.env up -d" | ssh $SERVER_USER_NAME@$SERVER_IP
-        env:
-          SERVER_IP: ${{ secrets.SERVER_IP }}
-          SERVER_USER_NAME: ${{ secrets.SERVER_USER_NAME }}
