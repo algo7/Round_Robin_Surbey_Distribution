@@ -1,8 +1,11 @@
 name: Survey Image CI/CD
 on: push
 jobs:
-  build:
+  CI/CD:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
 
     steps:
     # Clone the repo
@@ -19,13 +22,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           USER_NAME: ${{github.actor}}
-          
+
     # Push the image to the registry
       - name: Push
         run: docker-compose push
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          USER_NAME: ${{github.actor}}
 
 
 
