@@ -31,7 +31,6 @@ jobs:
     # Build the image 
       - name: Build Image
         run: |
-          echo $SERVER_IPX
           VERSION=$(echo "${GITHUB_SHA:0:6}")
           echo $VERSION
           echo "IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/survey_distro:$VERSION" > docker.env
