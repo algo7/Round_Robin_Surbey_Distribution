@@ -5,14 +5,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Clone the repo
       - name: Check Out Repo 
         uses: actions/checkout@v2
 
+    # Build the image 
       - name: Build
         run: docker-compose build && docker images
 
-      - name: Push
+    # Login to GitHub's container registry
+      - name: Login
         run: echo $GITHUB_TOKEN | docker login -u $USER_NAME --password-stdin ghcr.io
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          USER_NAME: ${{github.actor}}
+          
+    # Push the image to the registry
+      - name: Push
+        run: docker-compose push
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           USER_NAME: ${{github.actor}}
