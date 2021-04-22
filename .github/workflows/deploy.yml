@@ -38,6 +38,13 @@ jobs:
     # Push the image to the registry
       - name: Push
         run: docker-compose --env-file=docker.env push
+    
+    # Archive artifacts
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: docker.env
+          path: docker.env
 
 
 # # jobs:
