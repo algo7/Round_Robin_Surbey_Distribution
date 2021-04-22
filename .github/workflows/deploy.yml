@@ -2,7 +2,8 @@ name: Survey Image CI/CD
 on: push
 
 # Global variables
-IMAGE_NAME: "survey_distro:latest"
+env:
+  IMAGE_NAME: "survey_distro:latest"
 
 # Jobs
 jobs:
