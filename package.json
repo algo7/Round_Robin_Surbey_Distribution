@@ -18,7 +18,7 @@
   "homepage": "https://github.com/algo7/Round_Robin_Survey_Distribution#readme",
   "dependencies": {
     "compression": "^1.7.4",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "express-suite": "^1.6.3",
     "redis": "^3.1.2",
     "winston": "^3.3.3"
